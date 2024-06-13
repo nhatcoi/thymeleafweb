@@ -1,0 +1,80 @@
+version: '3.8'
+services:
+  db:
+    container_name: NHATCOI-MYSQL
+    image: mysql:5.7
+#    restart: always
+    environment:
+      MYSQL_DATABASE: DEMO_WEB #schema
+      MYSQL_ROOT_PASSWORD: 'nhatcoi2004'
+    ports:
+      # port exposed : mysql port running inside container
+      - "3306:3306"
+#    volumes:
+#      - ./data.sql:/docker-entrypoint-initdb.d/data.sql
+
+#  oracle:
+#    shm_size: 8g
+#    container_name: NAMLUKEKY-ORACLE
+#    ports:
+#      - '9445:1521'
+#    image: wnameless/oracle-xe-11g-r2
+#    environment:
+#      DB_SID: OraDoc
+#      DB_PASSWD: MyPasswd123
+#      DB_DOMAIN: my.domain.com
+#      DB_BUNDLE: basic
+
+#  zookeeper-1:
+#    image: confluentinc/cp-zookeeper:latest
+#    environment:
+#      ZOOKEEPER_CLIENT_PORT: 2181
+#      ZOOKEEPER_TICK_TIME: 2000
+#    ports:
+#      - 22181:2181
+
+#  kafka-1:
+#    image: confluentinc/cp-kafka:latest
+#    depends_on:
+#      - zookeeper-1
+#      - zookeeper-2
+#
+#    ports:
+#      - "29092:29092"
+#    environment:
+#      KAFKA_BROKER_ID: 1
+#      KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:2181,zookeeper-2:2181
+#      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-1:9092,PLAINTEXT_HOST://localhost:29092
+#      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+#      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+#      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+#      KAFKA_OFFSETS_TOPIC_NUM_PARTITION: 3
+
+#  zookeeper-2:
+#    image: confluentinc/cp-zookeeper:latest
+#    environment:
+#      ZOOKEEPER_CLIENT_PORT: 2181
+#      ZOOKEEPER_TICK_TIME: 2000
+#    ports:
+#      - "32181:2181"
+
+#  kafka-2:
+#    image: confluentinc/cp-kafka:latest
+#    depends_on:
+#      - zookeeper-1
+#      - zookeeper-2
+#    ports:
+#      - "39092:39092"
+#    environment:
+#      KAFKA_BROKER_ID: 2
+#      KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:2181,zookeeper-2:2181
+#      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-2:9092,PLAINTEXT_HOST://localhost:39092
+#      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+#      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+#      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+#      KAFKA_OFFSETS_TOPIC_NUM_PARTITION: 3
+
+#  memcached:
+#    image: memcached
+#    ports:
+#      - 11211:11211
