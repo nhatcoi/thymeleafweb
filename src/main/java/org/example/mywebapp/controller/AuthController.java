@@ -27,17 +27,17 @@ public class AuthController {
         return "signup_form";
     }
 
-    @PostMapping("/login/process_login")
-    public String loginUser(@ModelAttribute("user") User user, Model model, RedirectAttributes ra) {
-        User userLogin = service.login(user);
-        if (userLogin != null) {
-            ra.addFlashAttribute("message", "Login success.");
-            return "redirect:/users";
-        } else {
-            ra.addFlashAttribute("message", "Login failed.");
-            return "redirect:/";
-        }
-    }
+//    @PostMapping("/login/process_login")
+//    public String loginUser(@ModelAttribute("user") User user, Model model, RedirectAttributes ra) {
+//        User userLogin = service.login(user);
+//        if (userLogin != null) {
+//            ra.addFlashAttribute("message", "Login success.");
+//            return "redirect:/users";
+//        } else {
+//            ra.addFlashAttribute("message", "Login failed.");
+//            return "redirect:/";
+//        }
+//    }
 
 
     @PostMapping("/register/process_register")
@@ -46,5 +46,9 @@ public class AuthController {
         return "redirect:/";
     }
 
+    @GetMapping("/list_users")
+    public String viewUserList(Model model) {
+        return "users";
+    }
 
 }

@@ -24,16 +24,13 @@ public class UserRepositoryTests {
     @Autowired
     private UserRepository repo;
 
-    @Test
-    public void testAddNew() {
-        User user = new User();
-        user.setUsername("john.doe");
-        user.setPassword("john123");
-        user.setRole(2);
 
-        User savedUser = repo.save(user);
-        Assertions.assertThat(savedUser).isNotNull();
-        Assertions.assertThat(savedUser.getId()).isGreaterThan(0);
+    @Test
+    public void findByUserName() {
+        String username = "123123";
+        User user = repo.findByUsername(username);
+        Assertions.assertThat(user).isNotNull();
     }
+
 
 }
