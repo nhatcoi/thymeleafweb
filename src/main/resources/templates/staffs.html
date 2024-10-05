@@ -14,8 +14,9 @@
     <h1>Manage Staffs</h1>
     <div class="m-2">
         <a class="h3" th:href="@{/staffs/new}">Add new staff</a>
+        <br>
+        <a class="h3" th:href="@{/staff/show}">Show Staff</a>
     </div>
-
 
     <div th:if="${message}" class="alert alert-success text-center">
         [[${message}]]
@@ -48,7 +49,7 @@
                             <form th:action="@{'/staffs/edit/' + ${staff.id}}" method="get">
                                 <button class="btn btn-primary" type="submit">Edit</button>
                             </form>
-                            <form th:action="@{'/staffs/delete/' + ${staff.id}}" method="delete">
+                            <form th:action="@{'/staffs/delete/' + ${staff.id}}" method="get">
                                 <button class="btn btn-danger" type="submit">Delete</button>
                             </form>
                         </div>

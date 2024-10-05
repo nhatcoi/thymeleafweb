@@ -27,7 +27,7 @@ public class UserRepositoryTests {
 
     @Test
     public void findByUserName() {
-        String username = "123123";
+        String username = "nhatcoi";
         User user = repo.findByUsername(username);
         Assertions.assertThat(user).isNotNull();
     }

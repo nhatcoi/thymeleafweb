@@ -18,13 +18,15 @@
                     <h2 class="card-title text-center">Registration</h2>
                     <form th:action="@{/register/process_register}" method="post" th:object="${user}" onsubmit="return validatePasswords()">
                         <div class="mb-3">
-                            <input type="text" class="form-control" placeholder="Username" name="username" th:field="*{username}" required minlength="6" maxlength="20">
+                            <label>
+                                <input type="text" class="form-control" placeholder="Username" name="username" th:field="*{username}" required minlength="6" maxlength="20">
+                            </label>
                         </div>
                         <div class="mb-3">
-                            <input type="password" id="password" class="form-control" placeholder="Password" name="password" th:field="*{password}" required minlength="6" maxlength="20">
+                            <label for="password"></label><input type="password" id="password" class="form-control" placeholder="Password" name="password" th:field="*{password}" required minlength="6" maxlength="20">
                         </div>
                         <div class="mb-3">
-                            <input type="password" id="authPassword" class="form-control" placeholder="Auth-2th password" name="authPassword" required minlength="6" maxlength="20">
+                            <label for="authPassword"></label><input type="password" id="authPassword" class="form-control" placeholder="Auth-2th password" name="authPassword" required minlength="6" maxlength="20">
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Register</button>
                     </form>

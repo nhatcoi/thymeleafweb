@@ -1,5 +1,6 @@
 package org.example.mywebapp.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.example.mywebapp.entity.Staff;
 import org.example.mywebapp.exception.StaffNotFoundException;
 import org.example.mywebapp.services.StaffService;
@@ -12,16 +13,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class StaffController {
-    @Autowired private StaffService service;
+    private final StaffService service;
 
-    @GetMapping("/staffs")
+    // Read
+    @GetMapping("/staff/show")
     public String showStaffList(Model model) {
         List<Staff> listStaffs = service.listAll();
         model.addAttribute("listStaffs", listStaffs);
         return "staffs";
     }
 
+    // Create
     @GetMapping("/staffs/new")
     public String showNewForm(Model model) {
         model.addAttribute("staff", new Staff());
@@ -29,13 +33,7 @@ public class StaffController {
         return "staff_form";
     }
 
-    @PostMapping("/staffs/save")
-    public String saveStaff(Staff staff, RedirectAttributes ra) {
-        service.save(staff);
-        ra.addFlashAttribute("message", "The staff has been saved successfully.");
-        return "redirect:/staffs";
-    }
-
+    // Update
     @GetMapping("/staffs/edit/{id}")
     public String showEditForm(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
         try {
@@ -45,10 +43,11 @@ public class StaffController {
             return "staff_form";
         } catch (StaffNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
-            return "redirect:/staffs";
+            return "redirect:/staff/show";
         }
     }
 
+    // Delete
     @GetMapping("/staffs/delete/{id}")
     public String deleteStaff(@PathVariable("id") Integer id, RedirectAttributes ra) {
         try {
@@ -57,7 +56,17 @@ public class StaffController {
         } catch (StaffNotFoundException e) {
             throw new RuntimeException(e);
         }
-        return "redirect:/staffs";
+        return "redirect:/staff/show";
     }
 
- }
+
+    // Save
+    @PostMapping("/staffs/save")
+    public String saveStaff(Staff staff, RedirectAttributes ra) {
+        service.save(staff);
+        ra.addFlashAttribute("message", "The staff has been saved successfully.");
+        return "redirect:/staff/show";
+    }
+
+
+}
