@@ -14,12 +14,12 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class StaffController {
-    private final StaffService service;
+    private final StaffService staffService;
 
     // Read
     @GetMapping("/staffs/show")
     public String showStaffList(Model model) {
-        List<Staff> listStaffs = service.listAll();
+        List<Staff> listStaffs = staffService.listAll();
         model.addAttribute("listStaffs", listStaffs);
         return "staffs";
     }
@@ -37,7 +37,7 @@ public class StaffController {
     @GetMapping("/staffs/edit/{id}")
     public String showEditForm(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
         try {
-            Staff staff = service.get(id);
+            Staff staff = staffService.get(id);
             model.addAttribute("staff", staff);
             model.addAttribute("pageTitle", "Edit Staff (ID: " + id + ")");
             return "staff_form";
@@ -51,7 +51,7 @@ public class StaffController {
     @GetMapping("/staffs/delete/{id}")
     public String deleteStaff(@PathVariable("id") Integer id, RedirectAttributes ra) {
         try {
-            service.delete(id);
+            staffService.delete(id);
             ra.addFlashAttribute("message", "The staffs ID " + id + " has been deleted successfully.");
         } catch (StaffNotFoundException e) {
             throw new RuntimeException(e);
@@ -63,7 +63,7 @@ public class StaffController {
     // Save
     @PostMapping("/staffs/save")
     public String saveStaff(Staff staff, RedirectAttributes ra) {
-        service.save(staff);
+        staffService.save(staff);
         ra.addFlashAttribute("message", "The staff has been saved successfully.");
         return "redirect:/staffs/show";
     }
