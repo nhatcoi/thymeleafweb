@@ -9,3 +9,14 @@ registerLink.onclick = () => {
 loginLink.onclick = () => {
     wrapper.classList.remove('active')
 }
+
+function validatePasswords() {
+    const password = document.getElementById("password").value;
+    const authPassword = document.getElementById("authPassword").value;
+
+    if (password !== authPassword) {
+        alert("Passwords do not match. Please re-enter the passwords.");
+        return false;
+    }
+    return true;
+}

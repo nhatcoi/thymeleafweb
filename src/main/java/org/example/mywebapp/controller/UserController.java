@@ -28,35 +28,13 @@ public class UserController {
     }
 
 
-    @GetMapping("/login")
+    @GetMapping("/auth")
     public String loginPage(Model model) {
         model.addAttribute("user", new User());
-        return "login_form";
+        return "auth_form";
     }
 
-    @GetMapping("/register")
-    public String registerPage(Model model) {
-        model.addAttribute("user", new User());
-        return "signup_form";
-    }
-
-    @GetMapping("/staff_manager")
-    public String staffManager(Model model) {
-        model.addAttribute("staff_manager", new User());
-        return "staffs";
-    }
-
-
-
-//    @GetMapping("/list_users")
-//    public String viewUserList(Model model) {
-//        model.addAttribute("listUsers", userService.listAll());
-//        return "users";
-//    }
-
-
-
-    @PostMapping("/login/process_login")
+    @PostMapping("/auth/process_login")
     public String loginUser(@ModelAttribute("user") User user, RedirectAttributes ra) {
         User userLogin = userService.login(user);
         if (userLogin != null) {
@@ -64,14 +42,14 @@ public class UserController {
             return "redirect:/users";
         } else {
             ra.addFlashAttribute("message", "Login failed. Please check your username and password.");
-            return "redirect:/login";
+            return "redirect:/auth";
         }
     }
 
-    @PostMapping("/register/process_register")
+    @PostMapping("/auth/process_register")
     public String processRegister(User user) {
         userService.save(user);
-        return "redirect:/";
+        return "redirect:/auth";
     }
 
 

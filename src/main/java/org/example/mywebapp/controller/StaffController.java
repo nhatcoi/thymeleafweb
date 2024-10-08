@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.example.mywebapp.entity.Staff;
 import org.example.mywebapp.exception.StaffNotFoundException;
 import org.example.mywebapp.services.StaffService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +17,13 @@ public class StaffController {
     private final StaffService service;
 
     // Read
-    @GetMapping("/staff/show")
+    @GetMapping("/staffs/show")
     public String showStaffList(Model model) {
         List<Staff> listStaffs = service.listAll();
         model.addAttribute("listStaffs", listStaffs);
         return "staffs";
     }
+
 
     // Create
     @GetMapping("/staffs/new")
@@ -43,7 +43,7 @@ public class StaffController {
             return "staff_form";
         } catch (StaffNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
-            return "redirect:/staff/show";
+            return "redirect:/staffs/show";
         }
     }
 
@@ -56,7 +56,7 @@ public class StaffController {
         } catch (StaffNotFoundException e) {
             throw new RuntimeException(e);
         }
-        return "redirect:/staff/show";
+        return "redirect:/staffs/show";
     }
 
 
@@ -65,7 +65,7 @@ public class StaffController {
     public String saveStaff(Staff staff, RedirectAttributes ra) {
         service.save(staff);
         ra.addFlashAttribute("message", "The staff has been saved successfully.");
-        return "redirect:/staff/show";
+        return "redirect:/staffs/show";
     }
 
 

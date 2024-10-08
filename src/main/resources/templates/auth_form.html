@@ -50,7 +50,7 @@
 
         <h2 class="title animation" style="--i:0; --j:21">Login</h2>
 
-        <form th:action="@{/login/process_login}" th:object="${user}" method="post">
+        <form th:action="@{/auth/process_login}" th:object="${user}" method="post">
 
             <div class="input-box animation" style="--i:1; --j:22">
                 <input type="text" id="username" required th:field="*{username}">
@@ -83,7 +83,7 @@
 
         <h2 class="title animation" style="--i:17; --j:0">Sign Up</h2>
 
-        <form th:action="@{/register/process_register}" method="post" th:object="${user}"
+        <form th:action="@{/auth/process_register}" method="post" th:object="${user}"
               onsubmit="return validatePasswords()">
 
             <div class="input-box animation" style="--i:18; --j:1">
