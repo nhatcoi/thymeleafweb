@@ -26,11 +26,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void save(UserDTO userDTO) {
+    public User createUser(UserDTO userDTO) {
         User user = new User();
-        user.setUsername(userDTO.getUsername());
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
-        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        repo.save(user);
+        User existUser = repo.findByUsername(userDTO.getUsername());
+        if(existUser == null) {
+            user.setUsername(userDTO.getUsername());
+            PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+            user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+            return repo.save(user);
+        }
+        return null;
     }
 }

@@ -39,7 +39,7 @@ public class StaffController {
     public String showNewForm(Model model) {
         model.addAttribute("staff", new StaffDTO());
         model.addAttribute("pageTitle", "Create New Staff");
-        return "staff_form";
+        return "staff_add";
     }
 
     // Update
@@ -51,7 +51,7 @@ public class StaffController {
 
             model.addAttribute("staff", staffDTO);
             model.addAttribute("pageTitle", "Edit Staff (ID: " + id + ")");
-            return "staff_form";
+            return "staff_add";
         } catch (StaffNotFoundException e) {
             ra.addFlashAttribute("message", e.getMessage());
             return "redirect:/staffs/show";

@@ -50,7 +50,7 @@
 
         <h2 class="title animation" style="--i:0; --j:21">Login</h2>
 
-        <form th:action="@{/auth/process_login}" th:object="${user}" method="post">
+        <form th:action="@{/auth/log-in}" th:object="${user}" method="post">
 
             <div class="input-box animation" style="--i:1; --j:22">
                 <input type="text" id="username" required th:field="*{username}">
