@@ -10,13 +10,17 @@ import lombok.Setter;
 @Getter
 @Setter
 public class StaffDTO {
-    private String email;
+    private Integer id;
 
     private String firstName;
 
     private String lastName;
 
+    private String email;
+
     private String position;
 
     private boolean enabled;
+
+    private String resume;
 }

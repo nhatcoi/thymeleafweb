@@ -34,4 +34,6 @@ public class Staff {
     @Column(name = "enabled" )
     private boolean enabled;
 
+    @Column(name = "resume")
+    private String resume;
 }

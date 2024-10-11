@@ -1,6 +1,7 @@
 package org.example.mywebapp.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.mywebapp.dto.StaffDTO;
 import org.example.mywebapp.entity.Staff;
 import org.example.mywebapp.exception.StaffNotFoundException;
 import org.example.mywebapp.services.StaffService;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -20,7 +22,19 @@ public class StaffController {
     @GetMapping("/staffs/show")
     public String showStaffList(Model model) {
         List<Staff> listStaffs = staffService.listAll();
-        model.addAttribute("listStaffs", listStaffs);
+        List<StaffDTO> listStaffDTOs = new ArrayList<>();
+        for (Staff staff : listStaffs) {
+            StaffDTO staffDTO = new StaffDTO();
+            staffDTO.setId(staff.getId());
+            staffDTO.setEmail(staff.getEmail());
+            staffDTO.setFirstName(staff.getFirstName());
+            staffDTO.setLastName(staff.getLastName());
+            staffDTO.setPosition(staff.getPosition());
+            staffDTO.setEnabled(staff.isEnabled());
+            staffDTO.setResume(staff.getResume());
+            listStaffDTOs.add(staffDTO);
+        }
+        model.addAttribute("listStaffs", listStaffDTOs);
         return "staffs";
     }
 

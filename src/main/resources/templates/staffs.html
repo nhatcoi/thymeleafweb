@@ -61,10 +61,10 @@
                     <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Position</th>
                         <th scope="col">First Name</th>
                         <th scope="col">Last Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Position</th>
                         <th scope="col">Enable</th>
                         <th scope="col">Extension</th>
                     </tr>
@@ -93,24 +93,28 @@
                     <!--            </tbody>-->
                     <tbody>
 
-                    <th:block th:each="staff : ${listStaffs}">
+                    <th:block th:each="staffdto : ${listStaffs}">
                         <tr>
-                            <td th:text="${staff.id}"></td>
-                            <td><a th:href="@{'#'}" th:text="${staff.email}"></a></td>
+                            <td th:text="${staffdto.id}"></td>
+                            <td th:text="${staffdto.firstName}"></td>
+                            <td th:text="${staffdto.lastName}"></td>
+                            <td><a th:href="@{'mailto:' + ${staffdto.email}}" th:text="${staffdto.email}"></a></td>
                             <td>
-                                <span th:text="${staff.position}"></span>
-                                <small class="d-block" th:text="${staff.position}"></small>
+                                <span th:text="${staffdto.position}"></span>
+                                <small class="d-block" th:text="${staffdto.position}"></small>
                             </td>
-                            <td th:text="${staff.firstName}"></td>
-                            <td th:text="${staff.lastName}"></td>
-                            <td th:text="${staff.lastName}"></td>
-                            <td th:text="${staff.enabled}"></td>
+                            <td th:text="${staffdto.enabled ? 'Yes' : 'No'}"></td>
+                            <td>
+                                <a th:href="${staffdto.resume != null} ? ${staffdto.resume} : '#'"
+                                   th:text="${staffdto.resume != null} ? 'CV' : 'None'">
+                                </a>
+                            </td>
                             <td>
                                 <div class="d-flex justify-content-around">
-                                    <form th:action="@{'/staffs/edit/' + ${staff.id}}" method="get">
+                                    <form th:action="@{'/staffs/edit/' + ${staffdto.id}}" method="get">
                                         <button class="btn btn-primary" type="submit">Edit</button>
                                     </form>
-                                    <form th:action="@{'/staffs/delete/' + ${staff.id}}" method="get">
+                                    <form th:action="@{'/staffs/delete/' + ${staffdto.id}}" method="get">
                                         <button class="btn btn-danger" type="submit">Delete</button>
                                     </form>
                                 </div>
