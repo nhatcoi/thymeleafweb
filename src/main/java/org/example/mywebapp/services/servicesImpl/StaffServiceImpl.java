@@ -1,10 +1,12 @@
 package org.example.mywebapp.services.servicesImpl;
 
 import lombok.RequiredArgsConstructor;
+import org.example.mywebapp.dto.StaffDTO;
 import org.example.mywebapp.entity.Staff;
 import org.example.mywebapp.exception.StaffNotFoundException;
 import org.example.mywebapp.repository.StaffRepository;
 import org.example.mywebapp.services.StaffService;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.Optional;
 public class StaffServiceImpl implements StaffService {
 
     private final StaffRepository repo;
+    private final ModelMapper modelMapper;
 
     @Override
     public List<Staff> listAll() {
@@ -22,7 +25,8 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public void save(Staff staff) {
+    public void save(StaffDTO staffDTO) {
+        Staff staff = modelMapper.map(staffDTO, Staff.class);
         repo.save(staff);
     }
 

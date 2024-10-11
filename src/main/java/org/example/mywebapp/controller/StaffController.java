@@ -5,6 +5,7 @@ import org.example.mywebapp.dto.StaffDTO;
 import org.example.mywebapp.entity.Staff;
 import org.example.mywebapp.exception.StaffNotFoundException;
 import org.example.mywebapp.services.StaffService;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StaffController {
     private final StaffService staffService;
+    private final ModelMapper modelMapper;
 
     // Read
     @GetMapping("/staffs/show")
@@ -24,14 +26,7 @@ public class StaffController {
         List<Staff> listStaffs = staffService.listAll();
         List<StaffDTO> listStaffDTOs = new ArrayList<>();
         for (Staff staff : listStaffs) {
-            StaffDTO staffDTO = new StaffDTO();
-            staffDTO.setId(staff.getId());
-            staffDTO.setEmail(staff.getEmail());
-            staffDTO.setFirstName(staff.getFirstName());
-            staffDTO.setLastName(staff.getLastName());
-            staffDTO.setPosition(staff.getPosition());
-            staffDTO.setEnabled(staff.isEnabled());
-            staffDTO.setResume(staff.getResume());
+            StaffDTO staffDTO = modelMapper.map(staff, StaffDTO.class);
             listStaffDTOs.add(staffDTO);
         }
         model.addAttribute("listStaffs", listStaffDTOs);
@@ -42,7 +37,7 @@ public class StaffController {
     // Create
     @GetMapping("/staffs/new")
     public String showNewForm(Model model) {
-        model.addAttribute("staff", new Staff());
+        model.addAttribute("staff", new StaffDTO());
         model.addAttribute("pageTitle", "Create New Staff");
         return "staff_form";
     }
@@ -52,7 +47,9 @@ public class StaffController {
     public String showEditForm(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
         try {
             Staff staff = staffService.get(id);
-            model.addAttribute("staff", staff);
+            StaffDTO staffDTO = modelMapper.map(staff, StaffDTO.class);
+
+            model.addAttribute("staff", staffDTO);
             model.addAttribute("pageTitle", "Edit Staff (ID: " + id + ")");
             return "staff_form";
         } catch (StaffNotFoundException e) {
@@ -76,11 +73,9 @@ public class StaffController {
 
     // Save
     @PostMapping("/staffs/save")
-    public String saveStaff(Staff staff, RedirectAttributes ra) {
-        staffService.save(staff);
+    public String saveStaff(StaffDTO staffDTO, RedirectAttributes ra) {
+        staffService.save(staffDTO);
         ra.addFlashAttribute("message", "The staff has been saved successfully.");
         return "redirect:/staffs/show";
     }
-
-
 }
