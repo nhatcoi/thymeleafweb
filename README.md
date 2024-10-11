@@ -67,8 +67,10 @@ spring:
     hikari:
       maximum-pool-size: 8
     driver-class-name: com.mysql.cj.jdbc.Driver
-
 ```
+
+
+
 
 ## Controllers
 ### `AuthController.java`
