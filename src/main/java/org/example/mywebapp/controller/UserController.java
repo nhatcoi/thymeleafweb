@@ -1,6 +1,7 @@
 package org.example.mywebapp.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.mywebapp.dto.UserDTO;
 import org.example.mywebapp.entity.User;
 import org.example.mywebapp.services.UserService;
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
 
 
 @RequestMapping
@@ -20,23 +20,20 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("/users")
-    public String showUserList(Model model) {
-        List<User> listUsers = userService.listAll();
-        model.addAttribute("listUsers", listUsers);
-        return "users";
-    }
-
-
     @GetMapping("/auth")
     public String loginPage(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new UserDTO());
         return "auth_form";
     }
 
+    @GetMapping("/users")
+    public String userPage(Model model) {
+        return "users";
+    }
+
     @PostMapping("/auth/process_login")
-    public String loginUser(@ModelAttribute("user") User user, RedirectAttributes ra) {
-        User userLogin = userService.login(user);
+    public String loginUser(@ModelAttribute("user") UserDTO userDTO, RedirectAttributes ra) {
+        User userLogin = userService.login(userDTO);
         if (userLogin != null) {
             ra.addFlashAttribute("message", "Login success.");
             return "redirect:/users";
@@ -47,8 +44,8 @@ public class UserController {
     }
 
     @PostMapping("/auth/process_register")
-    public String processRegister(User user) {
-        userService.save(user);
+    public String processRegister(UserDTO userDTO) {
+        userService.save(userDTO);
         return "redirect:/auth";
     }
 }

@@ -20,3 +20,10 @@ function validatePasswords() {
     }
     return true;
 }
+
+document.addEventListener("click", function() {
+    const messageElement = document.getElementById("message");
+    if (messageElement) {
+        messageElement.textContent = "";
+    }
+});

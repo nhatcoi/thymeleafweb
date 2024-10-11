@@ -1,4 +1,4 @@
-package org.example.mywebapp.dto.request;
+package org.example.mywebapp.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class StaffRequest {
+public class StaffDTO {
     private String email;
 
     private String firstName;

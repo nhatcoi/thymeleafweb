@@ -1,6 +1,7 @@
 package org.example.mywebapp.services.servicesImpl;
 
 import lombok.RequiredArgsConstructor;
+import org.example.mywebapp.dto.UserDTO;
 import org.example.mywebapp.entity.User;
 import org.example.mywebapp.repository.UserRepository;
 import org.example.mywebapp.services.UserService;
@@ -18,12 +19,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User login(User user) {
-        return repo.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+    public User login(UserDTO userDTO) {
+        return repo.findByUsernameAndPassword(userDTO.getUsername(), userDTO.getPassword());
     }
 
     @Override
-    public void save(User user) {
+    public void save(UserDTO userDTO) {
+        User user = new User();
+        user.setUsername(userDTO.getUsername());
+        user.setPassword(userDTO.getPassword());
+        user.setRole(0);
         repo.save(user);
     }
 }

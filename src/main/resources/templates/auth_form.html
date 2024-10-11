@@ -65,6 +65,8 @@
             </div>
 
             <button type="submit" class="btn animation" style="--i:3; --j:24">Login</button>
+            <!--/*@thymesVar id="message" type=""*/-->
+            <p id="message" th:text="${message}" class="message text-center text-danger"></p>
 
             <div class="linkTxt animation" style="--i:5; --j:25">
                 <p>Don't have an account? <a href="#" class="register-link">Sign Up</a></p>
@@ -83,7 +85,7 @@
 
         <h2 class="title animation" style="--i:17; --j:0">Sign Up</h2>
 
-        <form th:action="@{/auth/process_register}" method="post" th:object="${user}"
+        <form th:action="@{/auth/process_regfister}" method="post" th:object="${user}"
               onsubmit="return validatePasswords()">
 
             <div class="input-box animation" style="--i:18; --j:1">
@@ -103,6 +105,7 @@
                 <label for="password_res_2">Retype Password</label>
                 <i class='bx bxs-lock-alt'></i>
             </div>
+            <p id="message_res" th:text="${message_res}" class="message text-center text-danger"></p>
 
             <button type="submit" class="btn animation" style="--i:21;--j:4">Sign Up</button>
 
