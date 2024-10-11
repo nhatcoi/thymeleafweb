@@ -16,18 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UserController {
     private final UserService userService;
 
-    @PostMapping("/auth/process_login")
-    public String loginUser(@ModelAttribute("user") UserDTO userDTO, RedirectAttributes ra) {
-        User userLogin = userService.login(userDTO);
-        if (userLogin != null) {
-            ra.addFlashAttribute("message", "Login success.");
-            return "redirect:/users";
-        } else {
-            ra.addFlashAttribute("message", "Login failed. Please check your username and password.");
-            return "redirect:/auth_form";
-        }
-    }
-
     @PostMapping("/auth/process_register")
     public String processRegister(@ModelAttribute("user") UserDTO userDTO, RedirectAttributes ra) {
         User user = userService.createUser(userDTO);
