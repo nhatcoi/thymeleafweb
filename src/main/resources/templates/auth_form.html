@@ -71,7 +71,6 @@
             <div class="linkTxt animation" style="--i:5; --j:25">
                 <p>Don't have an account? <a href="#" class="register-link">Sign Up</a></p>
             </div>
-
         </form>
     </div>
 
@@ -85,7 +84,7 @@
 
         <h2 class="title animation" style="--i:17; --j:0">Sign Up</h2>
 
-        <form th:action="@{/auth/process_regfister}" method="post" th:object="${user}"
+        <form th:action="@{/auth/process_register}" method="post" th:object="${user}"
               onsubmit="return validatePasswords()">
 
             <div class="input-box animation" style="--i:18; --j:1">

@@ -5,6 +5,8 @@ import org.example.mywebapp.dto.UserDTO;
 import org.example.mywebapp.entity.User;
 import org.example.mywebapp.repository.UserRepository;
 import org.example.mywebapp.services.UserService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -27,8 +29,8 @@ public class UserServiceImpl implements UserService {
     public void save(UserDTO userDTO) {
         User user = new User();
         user.setUsername(userDTO.getUsername());
-        user.setPassword(userDTO.getPassword());
-        user.setRole(0);
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         repo.save(user);
     }
 }

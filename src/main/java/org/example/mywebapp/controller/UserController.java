@@ -21,7 +21,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/auth")
-    public String loginPage(Model model) {
+    public String authPage(Model model) {
         model.addAttribute("user", new UserDTO());
         return "auth_form";
     }
@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @PostMapping("/auth/process_register")
-    public String processRegister(UserDTO userDTO) {
+    public String processRegister(@ModelAttribute("user") UserDTO userDTO) {
         userService.save(userDTO);
         return "redirect:/auth";
     }
